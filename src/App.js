@@ -59,8 +59,7 @@ function App() {
                     .get('https://codingapple1.github.io/shop/data2.json')
                     .then((res) => {
                       console.log(res.data);
-                      let copy = [...shoes];
-                      copy = copy.concat(res.data);
+                      let copy = [...shoes, ...res.data];
                       setShoes(copy);
                       console.log(copy);
                     })

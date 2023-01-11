@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { Nav } from 'react-bootstrap';
 
 let Box = styled.div`
   padding: 20px;
@@ -20,6 +21,7 @@ function Detail(props) {
   let [show, setShow] = useState(true);
   let [alertms, setAlert] = useState(false);
   let [value, setValue] = useState('');
+  let [tab, setTab] = useState(0);
 
   useEffect(() => {
     let timer = setTimeout(() => setShow(false), 2000);
@@ -32,7 +34,7 @@ function Detail(props) {
   useEffect(() => {
     if (isNaN(value)) {
       setAlert(true);
-      alert("그러지마세요")
+      alert('그러지마세요');
     } else {
       setAlert(false);
     }
@@ -58,8 +60,30 @@ function Detail(props) {
           {show ? <YellowBtn>장바구니 담기</YellowBtn> : null}
         </div>
       </div>
+      <Nav variant="tabs" defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(0)} eventKey="link0">
+            버튼0
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(1)} eventKey="link1">
+            버튼1
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(2)} eventKey="link2">
+            버튼2
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabContent tab={tab} />
     </div>
   );
+}
+
+function TabContent({tab}) {
+  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab];
 }
 
 export default Detail;

@@ -8,6 +8,7 @@ import data from './data.js';
 import Detail from './Detail';
 import About from './About';
 import Event from './Event';
+import axios from 'axios';
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -52,6 +53,24 @@ function App() {
                   );
                 })}
               </div>
+              <button
+                onClick={() => {
+                  axios
+                    .get('https://codingapple1.github.io/shop/data2.json')
+                    .then((res) => {
+                      console.log(res.data);
+                      let copy = [...shoes];
+                      copy = copy.concat(res.data);
+                      setShoes(copy);
+                      console.log(copy);
+                    })
+                    .catch((err) => {
+                      console.log('error : ', err);
+                    });
+                }}
+              >
+                axios
+              </button>
             </div>
           }
         />

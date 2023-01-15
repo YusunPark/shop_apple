@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
 import './Detail.css';
-import { Context1 } from './App.js';
+import { Context1 } from '../App.js';
 
 let Box = styled.div`
   padding: 20px;

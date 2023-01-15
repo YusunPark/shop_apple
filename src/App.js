@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 
@@ -10,8 +10,11 @@ import About from './About';
 import Event from './Event';
 import axios from 'axios';
 
+export let Context1 = React.createContext();
+
 function App() {
   let [shoes, setShoes] = useState(data);
+  let [stock, setStock] = useState([10, 11, 12]);
   return (
     <div>
       <Navbar bg="dark" variant="dark">
@@ -73,7 +76,14 @@ function App() {
             </div>
           }
         />
-        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route
+          path="/detail/:id"
+          element={
+            <Context1.Provider value={{ stock }}>
+              <Detail shoes={shoes} />
+            </Context1.Provider>
+          }
+        />
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버들</div>} />
           <Route path="location" element={<div>회사위치</div>} />

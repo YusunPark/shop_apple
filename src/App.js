@@ -8,6 +8,7 @@ import data from './data.js';
 import Detail from './routes/Detail';
 import About from './routes/About';
 import Event from './routes/Event';
+import Cart from './routes/Cart';
 import axios from 'axios';
 
 export let Context1 = React.createContext();
@@ -84,7 +85,7 @@ function App() {
             </Context1.Provider>
           }
         />
-        <Route path="/cart" element={<div></div>} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버들</div>} />
           <Route path="location" element={<div>회사위치</div>} />

@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 
@@ -16,6 +16,13 @@ export let Context1 = React.createContext();
 function App() {
   let [shoes, setShoes] = useState(data);
   let [stock, setStock] = useState([10, 11, 12]);
+
+  useEffect(() => {
+    if (localStorage.getItem('watched') === null) {
+      localStorage.setItem('watched', JSON.stringify([]));
+    }
+  }, []);
+
   return (
     <div>
       <Navbar bg="white" variant="white">
@@ -71,7 +78,7 @@ function App() {
                     });
                 }}
               >
-                axios
+                아이템 더 불러오기
               </button>
             </div>
           }

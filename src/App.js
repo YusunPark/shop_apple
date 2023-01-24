@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState, useEffect } from 'react';
 import { Button, Navbar, Container, Nav, Card } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query' 
 
 import './App.css';
 import data from './data.js';
@@ -16,6 +17,11 @@ export let Context1 = React.createContext();
 function App() {
   let [shoes, setShoes] = useState(data);
   let [stock, setStock] = useState([10, 11, 12]);
+  let result = useQuery(['작명'], () =>
+    axios.get('https://codingapple1.github.io/userdata.json').then((a) => {
+      return a.data;
+    })
+  );
 
   useEffect(() => {
     if (localStorage.getItem('watched') === null) {
@@ -27,6 +33,11 @@ function App() {
 
   return (
     <div>
+      <div>
+        {result.isLoading && '로딩중'}
+        {result.errir && '에러남'}
+        {result.data && result.data.name}
+      </div>
       <Navbar bg="white" variant="white">
         <Container>
           <Navbar.Brand href="/">Shop</Navbar.Brand>

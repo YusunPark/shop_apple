@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Table } from 'react-bootstrap';
-import { changeData } from '../store/dataSlice.js';
+import { increase, remove } from '../store/dataSlice.js';
 import { changeName, changeAge } from '../store/userSlice.js';
 
 function Cart() {
@@ -35,7 +35,8 @@ function Cart() {
             <th>#</th>
             <th>상품명</th>
             <th>수량</th>
-            <th>변경하기</th>
+            <th>변경</th>
+            <th>삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -47,10 +48,17 @@ function Cart() {
                 <td>{item.count}</td>
                 <td
                   onClick={() => {
-                    dispatch(changeData(item.id));
+                    dispatch(increase(item.id));
                   }}
                 >
-                  Click!
+                  수량 증가!
+                </td>
+                <td
+                  onClick={() => {
+                    dispatch(remove(idx));
+                  }}
+                >
+                  삭제
                 </td>
               </tr>
             );

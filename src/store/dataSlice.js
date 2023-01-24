@@ -7,18 +7,24 @@ let data = createSlice({
     { id: 2, name: 'Grey Yordan', count: 1 },
   ],
   reducers: {
-    changeData(state, action) {
+    increase(state, action) {
       let n = state.findIndex((a) => {
         return a.id === action.payload;
       });
       state[n].count++;
     },
-    addData(state, action) {
-      state.push(action.payload);
+    remove(state, action) {
+      state.splice(action.payload, 1);
+    },
+    create(state, action) {
+      let n = state.findIndex((a) => {
+        return a.id === action.payload.id;
+      });
+      n === -1 ? state.push(action.payload) : state[n].count++;
     },
   },
 });
 
-export let { changeData, addData } = data.actions;
+export let { increase, create, remove } = data.actions;
 
 export default data;

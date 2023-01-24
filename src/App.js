@@ -18,13 +18,12 @@ function App() {
   let [stock, setStock] = useState([10, 11, 12]);
   return (
     <div>
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="white" variant="white">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="/">Shop</Navbar.Brand>
           <Nav className="me-auto">
-            <Link to="/">Home</Link>
-            <Link to="/detail">Detail</Link>
-            <Link to="/event">Event</Link>
+            <Nav.Link href="/cart">Cart</Nav.Link>
+            <Nav.Link href="/event">Event</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

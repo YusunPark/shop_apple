@@ -23,6 +23,8 @@ function App() {
     }
   }, []);
 
+  let watched = '' || JSON.parse(localStorage.getItem('watched'));
+
   return (
     <div>
       <Navbar bg="white" variant="white">
@@ -75,15 +77,30 @@ function App() {
                   아이템 더 불러오기
                 </Button>
               </div>
-
-              <div>
-                {shoes.map((info, idx) => {
-                  return (
-                    <div key={idx}>
-                      <Item shoes={info} />
-                    </div>
-                  );
-                })}
+              <div style={{ display: 'flex' }}>
+                <div>
+                  {shoes.map((info, idx) => {
+                    return (
+                      <div key={idx}>
+                        <Item shoes={info} />
+                      </div>
+                    );
+                  })}
+                </div>
+                <Card style={{ width: '8rem' }}>
+                  <Card.Header>최근 본 상품</Card.Header>
+                  <Card.Body>
+                    {watched.map((idx) => {
+                      return (
+                        <Card.Img
+                          key={idx}
+                          variant="top"
+                          src={`https://codingapple1.github.io/shop/shoes${idx * 1 + 1}.jpg`}
+                        />
+                      );
+                    })}
+                  </Card.Body>
+                </Card>
               </div>
             </div>
           }

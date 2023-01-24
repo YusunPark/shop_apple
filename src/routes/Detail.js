@@ -24,16 +24,14 @@ function Detail(props) {
   let [fade, setFade] = useState('');
   let { stock } = useContext(Context1);
   let dispatch = useDispatch();
-  let isWatched = JSON.parse(localStorage.getItem('watched'));
-  console.log(isWatched);
-  if (info.id in isWatched) {
-    console.log('Asdf');
-  } else {
-    console.log('Asdasdfadsff');
 
+  useEffect(() => {
+    let isWatched = JSON.parse(localStorage.getItem('watched'));
     isWatched.push(info.id);
+    isWatched = new Set(isWatched);
+    isWatched = Array.from(isWatched);
     localStorage.setItem('watched', JSON.stringify(isWatched));
-  }
+  }, []);
 
   useEffect(() => {
     let timer = setTimeout(() => setShow(false), 2000);

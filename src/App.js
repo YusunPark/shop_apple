@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState, useEffect } from 'react';
-import { Button, Navbar, Container, Nav } from 'react-bootstrap';
+import { Button, Navbar, Container, Nav, Card } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 
 import './App.css';
@@ -40,46 +40,51 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="container">
-              <button
-                onClick={() => {
-                  let copy = [...shoes];
-                  copy.sort(function (a, b) {
-                    if (a.title > b.title) return 1;
-                    if (a.title < b.title) return -1;
-                    return 0;
-                  });
-                  setShoes(copy);
-                }}
-              >
-                정렬
-              </button>
-              <div className="row">
+            <div className="App">
+              <div>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    let copy = [...shoes];
+                    copy.sort(function (a, b) {
+                      if (a.title > b.title) return 1;
+                      if (a.title < b.title) return -1;
+                      return 0;
+                    });
+                    setShoes(copy);
+                  }}
+                >
+                  이름순 정렬
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    axios
+                      .get('https://codingapple1.github.io/shop/data2.json')
+                      .then((res) => {
+                        console.log(res.data);
+                        let copy = [...shoes, ...res.data];
+                        setShoes(copy);
+                        console.log(copy);
+                      })
+                      .catch((err) => {
+                        console.log('error : ', err);
+                      });
+                  }}
+                >
+                  아이템 더 불러오기
+                </Button>
+              </div>
+
+              <div>
                 {shoes.map((info, idx) => {
                   return (
                     <div key={idx}>
-                      <Item shoes={info} /> <Link to={`/detail/${info.id}`}>상세페이지</Link>
+                      <Item shoes={info} />
                     </div>
                   );
                 })}
               </div>
-              <button
-                onClick={() => {
-                  axios
-                    .get('https://codingapple1.github.io/shop/data2.json')
-                    .then((res) => {
-                      console.log(res.data);
-                      let copy = [...shoes, ...res.data];
-                      setShoes(copy);
-                      console.log(copy);
-                    })
-                    .catch((err) => {
-                      console.log('error : ', err);
-                    });
-                }}
-              >
-                아이템 더 불러오기
-              </button>
             </div>
           }
         />
@@ -108,14 +113,17 @@ function App() {
 
 function Item(props) {
   return (
-    <div className="col-md-4">
-      <img
-        src={`https://codingapple1.github.io/shop/shoes${props.shoes.id * 1 + 1}.jpg`}
-        width="80%"
-        alt="shoes_image"
-      />
-      <h4>{props.shoes.title}</h4>
-      <p>{props.shoes.price}</p>
+    <div>
+      <Card style={{ width: '25rem' }}>
+        <Card.Img variant="top" src={`https://codingapple1.github.io/shop/shoes${props.shoes.id * 1 + 1}.jpg`} />
+        <Card.Body>
+          <Card.Title>{props.shoes.title}</Card.Title>
+          <Card.Text>{props.shoes.price} </Card.Text>
+          <Button variant="primary" href={`/detail/${props.shoes.id}`}>
+            상세페이지
+          </Button>
+        </Card.Body>
+      </Card>
     </div>
   );
 }

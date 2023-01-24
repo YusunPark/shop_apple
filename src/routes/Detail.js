@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { InputGroup, Nav } from 'react-bootstrap';
+import { Button, InputGroup, Nav } from 'react-bootstrap';
 import './Detail.css';
 import { Context1 } from '../App.js';
 import { useDispatch } from 'react-redux';
@@ -10,11 +10,6 @@ import { create } from '../store/dataSlice.js';
 let Box = styled.div`
   padding: 20px;
   color: grey;
-`;
-let YellowBtn = styled.button`
-  background: yellow;
-  color: black;
-  padding: 10px;
 `;
 
 function Detail(props) {
@@ -63,12 +58,6 @@ function Detail(props) {
 
   return (
     <div className={`container start ${fade}`}>
-      <input
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-      />
-      {alertms ? <Box>그러지마세요..</Box> : null}
       <div className="row">
         <div className="col-md-6">
           <img src={`https://codingapple1.github.io/shop/shoes${info.id + 1}.jpg`} width="100%" alt="item_image" />
@@ -77,8 +66,24 @@ function Detail(props) {
           <h4 className="pt-5">{info.title}</h4>
           <p>{info.content}</p>
           <p>{info.price}</p>
-          <p>{stock}</p>
-          <button className="btn btn-danger">주문하기</button>
+          <p>{stock}</p>{' '}
+          <input
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+          />
+          {alertms ? <Box>그러지마세요..</Box> : null}
+          <div>
+            <Button variant="primary">주문하기</Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                dispatch(create({ id: info.id, name: info.title, count: 1 }));
+              }}
+            >
+              장바구니 담기
+            </Button>
+          </div>
           <Nav variant="tabs" defaultActiveKey="link0">
             <Nav.Item>
               <Nav.Link onClick={() => setTab(0)} eventKey="link0">
@@ -97,13 +102,6 @@ function Detail(props) {
             </Nav.Item>
           </Nav>
           <TabContent tab={tab} />
-          <YellowBtn
-            onClick={() => {
-              dispatch(create({ id: info.id, name: info.title, count: 1 }));
-            }}
-          >
-            장바구니 담기
-          </YellowBtn>
           <Link to="/cart"> 카트</Link>
         </div>
       </div>
@@ -116,7 +114,7 @@ function TabContent({ tab }) {
   useEffect(() => {
     setTimeout(() => {
       setFade('end');
-    }, 1000);
+    }, 700);
     return () => {
       setFade('');
     };

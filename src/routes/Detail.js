@@ -5,7 +5,7 @@ import { InputGroup, Nav } from 'react-bootstrap';
 import './Detail.css';
 import { Context1 } from '../App.js';
 import { useDispatch } from 'react-redux';
-import { addData } from '../store/dataSlice.js';
+import { create } from '../store/dataSlice.js';
 
 let Box = styled.div`
   padding: 20px;
@@ -90,7 +90,7 @@ function Detail(props) {
           <TabContent tab={tab} />
           <YellowBtn
             onClick={() => {
-              dispatch(addData({ id: info.id, name: info.title, count: 1 }));
+              dispatch(create({ id: info.id, name: info.title, count: 1 }));
             }}
           >
             장바구니 담기

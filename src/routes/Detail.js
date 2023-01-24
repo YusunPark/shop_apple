@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Nav } from 'react-bootstrap';
+import { InputGroup, Nav } from 'react-bootstrap';
 import './Detail.css';
 import { Context1 } from '../App.js';
+import { useDispatch } from 'react-redux';
+import { addData } from '../store/dataSlice.js';
 
 let Box = styled.div`
   padding: 20px;
@@ -26,6 +28,8 @@ function Detail(props) {
   let [tab, setTab] = useState(0);
   let [fade, setFade] = useState('');
   let { stock } = useContext(Context1);
+
+  let dispatch = useDispatch();
 
   useEffect(() => {
     let timer = setTimeout(() => setShow(false), 2000);
@@ -84,7 +88,14 @@ function Detail(props) {
             </Nav.Item>
           </Nav>
           <TabContent tab={tab} />
-          {show ? <YellowBtn>장바구니 담기</YellowBtn> : null}
+          <YellowBtn
+            onClick={() => {
+              dispatch(addData({ id: info.id, name: info.title, count: 1 }));
+            }}
+          >
+            장바구니 담기
+          </YellowBtn>
+          <Link to="/cart"> 카트</Link>
         </div>
       </div>
     </div>

@@ -8,15 +8,13 @@ let data = createSlice({
   ],
   reducers: {
     changeData(state, action) {
-      state.map((item) => {
-        if (action.payload.id === item.id) {
-          item.count++;
-        }
+      let n = state.findIndex((a) => {
+        return a.id === action.payload;
       });
+      state[n].count++;
     },
     addData(state, action) {
-      state.push(action.payload.id, action.payload.title, 0);
-      console.log(action);
+      state.push(action.payload);
     },
   },
 });
